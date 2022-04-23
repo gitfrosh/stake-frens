@@ -20,6 +20,7 @@ contract Task {
         string task;
         bool isCompleted;
         address ownerAddress;
+        bool isLead;
     }
 
     Subtask[] subtasks;
@@ -43,14 +44,28 @@ contract Task {
             )
         );
 
-        // populateSubtasks();
+        populateSubtasks();
     }
 
-    // function populateSubtasks() private {
-    //     subtasks.push(Subtask("task 1", true, msg.sender));
+    function populateSubtasks() private {
+        subtasks.push(
+            Subtask(
+                "task 1",
+                true,
+                0x92d3578F3d9fAf59b41117Fb92CF1968554b0590,
+                false
+            )
+        );
 
-    //     subtasks.push(Subtask("task 2", false, msg.sender));
-    // }
+        subtasks.push(
+            Subtask(
+                "task 2",
+                false,
+                0x03D28Df4b4c3a4bb1eA5D0a518E4D045172a6559,
+                true
+            )
+        );
+    }
 
     function stateOfCompletion() public view returns (Subtask[] memory) {
         return subtasks;
@@ -66,8 +81,18 @@ contract Task {
 
         if (nameZero == subtasks.length) {
             console.log("send money back");
+            uint256 amountToPayBack = address(this).balance / 2;
+
+            (bool success1, ) = (0x92d3578F3d9fAf59b41117Fb92CF1968554b0590)
+                .call{value: amountToPayBack}("");
+            (bool success2, ) = (0x03D28Df4b4c3a4bb1eA5D0a518E4D045172a6559)
+                .call{value: amountToPayBack}("");
+            require(success2, "Failed to withdraw money from contract.");
         } else {
             console.log("No money for you mooootherfuckker");
+            uint256 amountToPayBack = address(this).balance;
+            (bool success3, ) = (0x92d3578F3d9fAf59b41117Fb92CF1968554b0590)
+                .call{value: amountToPayBack}("");
         }
     }
 
