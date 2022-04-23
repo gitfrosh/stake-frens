@@ -8,7 +8,6 @@ import {
   Title,
   TextInput,
 } from "@mantine/core";
-import { NextComponentType } from "next";
 import { useForm } from "@mantine/form";
 
 const JoinProjectModal: any = ({
