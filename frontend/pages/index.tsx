@@ -30,15 +30,16 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import FrensHeader from "../components/FrensHeader";
+import NewProject from "../components/NewProject";
 
 const Home: NextPage = () => {
   const theme = useMantineTheme();
   const [projectId, setProjectId] = useState();
   const [joinProjectModalOpened, toggleJoinProjectModalOpened] =
     useState(false);
-
-    const alchemyId = "https://eth-rinkeby.alchemyapi.io/v2/2jGs4dNiDis1z-obgpnYChHC91ur_Zfg"
-
+  const [newProject, toggleNewProject] = useState(false);
+  const alchemyId =
+    "https://eth-rinkeby.alchemyapi.io/v2/2jGs4dNiDis1z-obgpnYChHC91ur_Zfg";
 
   // Chains for connectors to support
   const chains = defaultChains;
@@ -67,8 +68,14 @@ const Home: NextPage = () => {
     ];
   };
 
+  // const provider = () =>
+  // new providers.InfuraProvider(4, 'Your infura id')
+
+
   return (
-    <Provider autoConnect connectors={connectors}>
+    <Provider 
+    // provider={provider}
+     autoConnect connectors={connectors}>
       <MantineProvider
         theme={{
           fontFamily: "Courier, sans-serif",
@@ -108,14 +115,15 @@ const Home: NextPage = () => {
               Application footer
             </Footer>
           }
-          header={
-            <FrensHeader />
-          }
+          header={<FrensHeader />}
         >
           {projectId ? (
             <Project />
+          ) : newProject ? (
+            <NewProject toggleNewProject={toggleNewProject} />
           ) : (
             <Start
+              toggleNewProject={toggleNewProject}
               toggleJoinProjectModalOpened={toggleJoinProjectModalOpened}
             />
           )}

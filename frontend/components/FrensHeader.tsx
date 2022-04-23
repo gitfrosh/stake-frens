@@ -19,6 +19,7 @@ import {
   MediaQuery,
   useMantineTheme,
   Chip,
+  Paper,
 } from "@mantine/core";
 import { NextComponentType } from "next";
 import { useForm } from "@mantine/form";
@@ -39,20 +40,19 @@ const FrensHeader: any = ({}: any) => {
   });
 
   const LoggedIn = () => (
-    <Chip>
-      {accountData?.ens?.name
-        ? `${accountData.ens?.name}`
-        : `${accountData?.address?.slice(0, 6)}...${accountData?.address?.slice(
+    <div style={{ marginTop: 10 }}>
+     <Text>  {accountData?.ens?.name
+        ? `Hello ${accountData.ens?.name}!`
+        : `Hello ${accountData?.address?.slice(0, 6)}...${accountData?.address?.slice(
             accountData?.address?.length - 4,
             accountData?.address?.length
-          )}`}
-    </Chip>
+          )}!`}</Text> </div>
   );
   const LoggedOut = () => (
     <>
       {data.connectors.map((connector) => (
         <Button
-          disabled={!connector.ready}
+          disabled={!connector.ready && !!accountData?.address}
           key={connector.id}
           onClick={() => connect(connector)}
           variant="outline"

@@ -25,7 +25,7 @@ import {
 import Image from "next/image";
 import logo from "../assets/logo.png";
 
-const Start: any = ({ toggleJoinProjectModalOpened} :any) => {
+const Start: any = ({ toggleJoinProjectModalOpened , toggleNewProject} :any) => {
   return (
     <Center>
       <div style={{ width: "90%", margin: "auto" }}>
@@ -58,6 +58,8 @@ const Start: any = ({ toggleJoinProjectModalOpened} :any) => {
             variant="filled"
             color="primary"
             style={{ marginTop: 14 }}
+            onClick={() => toggleNewProject(true)}
+
           >
             Start Project
           </Button>
