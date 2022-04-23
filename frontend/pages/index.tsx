@@ -31,6 +31,8 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import FrensHeader from "../components/FrensHeader";
 import NewProject from "../components/NewProject";
+import { EtherscanProvider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 
 const Home: NextPage = () => {
   const theme = useMantineTheme();
@@ -38,8 +40,6 @@ const Home: NextPage = () => {
   const [joinProjectModalOpened, toggleJoinProjectModalOpened] =
     useState(false);
   const [newProject, toggleNewProject] = useState(false);
-  const alchemyId =
-    "https://eth-rinkeby.alchemyapi.io/v2/2jGs4dNiDis1z-obgpnYChHC91ur_Zfg";
 
   // Chains for connectors to support
   const chains = defaultChains;
@@ -68,14 +68,18 @@ const Home: NextPage = () => {
     ];
   };
 
-  // const provider = () =>
-  // new providers.InfuraProvider(4, 'Your infura id')
+  const provider = new EtherscanProvider(42);
+  // Ethers.js provider initialization
+// const url =
+// "https://eth-kovan.alchemyapi.io/v2/iv9xINB4zud7LQKwTsgcAJP-wxnK9PNV";
+//  const provider = new ethers.providers.JsonRpcProvider(url, {
+//    name: "kovan",
+//    chainId: 42
+//  });
 
 
   return (
-    <Provider 
-    // provider={provider}
-     autoConnect connectors={connectors}>
+    <Provider provider={provider} autoConnect connectors={connectors}>
       <MantineProvider
         theme={{
           fontFamily: "Courier, sans-serif",
@@ -112,13 +116,13 @@ const Home: NextPage = () => {
           fixed
           footer={
             <Footer height={60} p="md">
-              Application footer
+              Made with love during ETHAmsterdam &hearts;
             </Footer>
           }
           header={<FrensHeader />}
         >
           {projectId ? (
-            <Project />
+            <Project projectId={projectId} setProjectId={setProjectId} />
           ) : newProject ? (
             <NewProject toggleNewProject={toggleNewProject} />
           ) : (

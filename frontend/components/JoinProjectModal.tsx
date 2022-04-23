@@ -33,10 +33,11 @@ const JoinProjectModal: any = ({
         setProjectId(values.projectId) 
         toggleJoinProjectModalOpened(false) 
       } )}>
+          
       <TextInput
          required
          label="Project id"
-         description="Please enter an existing project id."
+         description="Please enter an existing project id. Hint: Try 0xD7A0f45254E4167bC042896B9B46D02c4A8a1809 :)"
           {...form.getInputProps("projectId")}
           placeholder=""
         />

@@ -1,41 +1,23 @@
 import { useState } from "react";
 import {
-  Modal,
   Button,
-  Group,
-  Input,
-  InputWrapper,
-  Title,
   Text,
-  TextInput,
-  Card,
-  Center,
-  Alert,
-  Space,
-  Table,
   Burger,
   Grid,
   Header,
   MediaQuery,
   useMantineTheme,
-  Chip,
-  Paper,
 } from "@mantine/core";
-import { NextComponentType } from "next";
-import { useForm } from "@mantine/form";
-import { MoodSad } from "tabler-icons-react";
-import { CircleCheck } from "tabler-icons-react";
 import Image from "next/image";
 import logo from "../assets/logo.png";
 import { useAccount, useConnect } from "wagmi";
 
-import { ThemeIcon } from "@mantine/core";
 
 const FrensHeader: any = ({}: any) => {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
-  const [{ data, error }, connect] = useConnect();
-  const [{ data: accountData }, disconnect] = useAccount({
+  const [{ data }, connect] = useConnect();
+  const [{ data: accountData }] = useAccount({
     fetchEns: true,
   });
 

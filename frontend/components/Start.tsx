@@ -1,31 +1,20 @@
-import { NextComponentType } from "next";
-import type { NextPage } from "next";
-import React, { useState } from "react";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import React from "react";
 import {
-  AppShell,
-  Navbar,
-  Header,
-  Footer,
-  Aside,
   Text,
-  MediaQuery,
-  Burger,
-  useMantineTheme,
-  Container,
   Center,
-  Badge,
   Button,
   Card,
-  Group,
   Title,
   Space,
 } from "@mantine/core";
 import Image from "next/image";
 import logo from "../assets/logo.png";
+import { useAccount } from "wagmi";
 
 const Start: any = ({ toggleJoinProjectModalOpened , toggleNewProject} :any) => {
+  const [{ data: accountData }] = useAccount({
+    fetchEns: true,
+  });
   return (
     <Center>
       <div style={{ width: "90%", margin: "auto" }}>
@@ -33,11 +22,19 @@ const Start: any = ({ toggleJoinProjectModalOpened , toggleNewProject} :any) => 
           <Card.Section>
             <div style={{ textAlign: "center", padding: 50}}>
               <Image style={{ marginBottom: 20 }} src={logo} alt="Logo" />
-  
 
-           
             <Title style={{ marginTop: 20 }} order={2}>A better way to get things done.</Title>
-            {/* <Text>First line</Text>
+            <Space h="xl" />
+
+            <Text>Start a project with your frens, stake xDAI and 
+              commit to your sub-tasks. If you fail your deadline, your staked
+              xDAI goes to charity. 
+
+            </Text>
+            <Space h="xl" />
+
+            {/*
+            <Space h="xl" />
 
             <Space h="lg" />
               <Text weight={500}>Norway Fjord Adventures</Text>
@@ -55,6 +52,7 @@ const Start: any = ({ toggleJoinProjectModalOpened , toggleNewProject} :any) => 
           
 
           <Button
+          disabled={!accountData?.address}
             variant="filled"
             color="primary"
             style={{ marginTop: 14 }}
@@ -65,6 +63,8 @@ const Start: any = ({ toggleJoinProjectModalOpened , toggleNewProject} :any) => 
           </Button>
           {' '}
           <Button
+                    disabled={!accountData?.address}
+
             variant="outline"
             color="primary"
             onClick={() => toggleJoinProjectModalOpened(true)}
